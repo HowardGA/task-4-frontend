@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.REACT_APP_API_URL || 'http://localhost:3001/api',
+  baseURL: import.meta.env.VITE_BACKEND_URL || 'https://task-4-backend-six.vercel.app/api',
   timeout: 10000,
   withCredentials: true, 
   headers: {
