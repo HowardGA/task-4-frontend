@@ -25,7 +25,6 @@ export const useRegister = () => {
   return useMutation({
     mutationFn: (data) => createUser(data),
     onSuccess: (response) => {
-        console.log(response)
         setUser(response.user);
         navigate(response.user.status === 'BLOCKED' ? '/login' : '/admin');
     }
@@ -48,10 +47,13 @@ export const useSession = () => {
 
 export const useLogout = () => {
     const { setUser } = useAuth();
+    const navigate = useNavigate();
+
     return useMutation({
     mutationFn:logout,
     onSuccess: () => {
       setUser(null);
+      navigate('/login');
     }
   });
 }
