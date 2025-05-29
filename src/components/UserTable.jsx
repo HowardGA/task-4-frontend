@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useUsers, useActivateUsers, useBlockUsers, useDeleteUsers } from '../api/user/userHooks';
 import Sparkline from './Sparkline';
 import { getActivityCountsByDay } from '../utils/activityUtils.js';
+import { useAuth } from '../context/AuthContenxt.jsx';
+import { useNavigate } from 'react-router-dom';
 
 
 const UserTable = () => {
@@ -21,6 +23,8 @@ const UserTable = () => {
             status: ''
             }
         });
+    const { user, setUser } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (alert) {
@@ -84,9 +88,23 @@ const UserTable = () => {
     };
 
     const handleBulkBlock = () => {
-        blockUsersMutation.mutate(selectedUsers);
-    };
+        const isSelfBlocked = selectedUsers.includes(user?.id);
+        useBlockUsers().mutate(selectedUsers, {
+            onSuccess: () => {
+                setAlert({ type: 'warning', message: 'Selected users have been blocked.' });
+                refetch();
+                setSelectedUsers([]);
 
+                if (isSelfBlocked) {
+                    setUser(null);
+                    navigate('/login', { replace: true });
+                }
+            },
+            onError: () => {
+                setAlert({ type: 'danger', message: 'Failed to block users.' });
+            }
+        });
+    };
     const handleBulkActivate = () => {
      activateUsersMutation.mutate(selectedUsers);
     };
