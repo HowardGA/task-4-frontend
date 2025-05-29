@@ -11,9 +11,6 @@ export const useLogin = () => {
         onSuccess: (response) => {
             setUser(response.user); 
             navigate('/admin');
-        },
-        onError: (error) => {
-          console.error(error)
         }
     })
 }
