@@ -12,19 +12,15 @@ function App() {
       <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
-          <Route path="/" element={<Layout />}>
-            <Route 
-            path="/admin" 
+          <Route
+            path="/"
             element={
               <ProtectedRoute>
-                <AdminPanel />
+                <Layout />
               </ProtectedRoute>
-            } 
-          />
+            }>
+            <Route path="admin" element={<AdminPanel />} />
           </Route>
-
-          {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </div>
   )
