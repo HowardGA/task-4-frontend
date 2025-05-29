@@ -46,7 +46,7 @@ const RegisterForm = () => {
                     <input 
                     type="text" 
                     placeholder='Name'
-                    className="form-control is-invalid" 
+                    className={`form-control ${errors.name ? 'is-invalid' : ''}`} 
                     id="name" 
                     {...register('name', {
                         required: 'Name is required',
@@ -62,7 +62,7 @@ const RegisterForm = () => {
                     <input 
                     type="email" 
                     placeholder='Email'
-                    className="form-control is-invalid" 
+                    className={`form-control ${errors.email ? 'is-invalid' : ''}`} 
                     id="email" 
                     {...register('email', {
                         required: 'Email is required',
@@ -77,7 +77,7 @@ const RegisterForm = () => {
                     <div className="form-floating is-invalid">
                         <input 
                         type={showPassword ? ('text') : ('password')}
-                        className="form-control is-invalid" 
+                        className={`form-control ${errors.password ? 'is-invalid' : ''}`} 
                         placeholder="Password" 
                         id="password" 
                         {...register('password', {

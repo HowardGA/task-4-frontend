@@ -18,7 +18,7 @@ const LoginForm = () => {
             setSubmitSuccess(response.message || "Login successful!");
         } catch (e) {
             console.log(e)
-            setSubmitError( e.error || "Error logging in");
+            setSubmitError( e.error || error.error || "Error logging in");
         }
     }
 
@@ -47,7 +47,7 @@ const LoginForm = () => {
                     <input 
                     type="email" 
                     placeholder='Email'
-                    className="form-control is-invalid" 
+                    className={`form-control ${errors.email ? 'is-invalid' : ''}`} 
                     id="email" 
                     {...register('email', {
                         required: 'Email is required',
@@ -62,7 +62,7 @@ const LoginForm = () => {
                     <div className="form-floating is-invalid">
                         <input 
                         type={showPassword ? ('text') : ('password')}
-                        className="form-control is-invalid" 
+                        className={`form-control ${errors.password ? 'is-invalid' : ''}`} 
                         placeholder="Password" 
                         id="password" 
                         {...register('password', {
