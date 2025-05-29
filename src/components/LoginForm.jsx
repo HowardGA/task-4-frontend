@@ -16,8 +16,8 @@ const LoginForm = () => {
         try {
             const response = await login(data);
             setSubmitSuccess(response.message || "Login successful!");
-        } catch (error) {
-            setSubmitError(error.response?.data?.error || "Error logging in");
+        } catch (e) {
+            setSubmitError(error || "Error logging in");
         }
     }
 
