@@ -19,7 +19,9 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                        <li className="nav-item">
-                            {user.name}
+                        {
+                            user && (user.name)
+                        }
                        </li>
                     </ul>
                     <div className="d-flex"> 
