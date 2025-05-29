@@ -18,8 +18,7 @@ const LoginForm = () => {
             setSubmitSuccess(response.message || "Login successful!");
         } catch (e) {
             console.log(e)
-            console.log(error)
-            setSubmitError( "Error logging in");
+            setSubmitError( e.error || "Error logging in");
         }
     }
 
