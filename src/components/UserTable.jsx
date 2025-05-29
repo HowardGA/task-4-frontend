@@ -33,17 +33,6 @@ const UserTable = () => {
         }
     }, [alert]);
 
-
-    const blockUsersMutation = useBlockUsers({
-        onSuccess: () => {
-            setAlert({ type: 'warning', message: 'Selected users have been blocked.' });
-            refetch();
-            setSelectedUsers([]);
-        },
-        onError: () => {
-            setAlert({ type: 'danger', message: 'Failed to block users.' });
-        }
-    });
     const activateUsersMutation = useActivateUsers({
         onSuccess: () => {
             setAlert({ type: 'primary', message: 'Selected users have been activated.' });
