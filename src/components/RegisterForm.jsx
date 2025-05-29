@@ -18,7 +18,6 @@ const RegisterForm = () => {
             setSubmitSuccess(response.message || "Registration successful!");
         } catch (e) {
             setSubmitError(error || e || "Error while creating user");
-            console.log(`this is catch: ${e}, rq: ${error}`)
         }
     }
 
