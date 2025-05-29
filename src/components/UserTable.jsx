@@ -142,22 +142,22 @@ const UserTable = () => {
                 </div>
             )}
 
-        <div className="row mb-3 align-items-center">
-            <div className="col-12 col-md-4 mb-2 mb-md-0">
+        <div className="row mb-3 align-items-stretch g-2">
+            <div className="col-12 col-md-4">
             <input
                 {...register('search')}
                 placeholder="Search by name or email"
                 className="form-control"
             />
             </div>
-            <div className="col-12 col-md-4 mb-2 mb-md-0">
+            <div className="col-12 col-md-4">
             <select {...register('status')} className="form-select">
                 <option value="">All Statuses</option>
                 <option value="ACTIVE">Active</option>
                 <option value="BLOCKED">Blocked</option>
             </select>
             </div>
-             <div className="col-12 col-md-4 d-flex justify-content-end gap-2">
+             <div className="col-12 col-md-4 d-flex flex-wrap justify-content-end gap-2">
                 <button
                     className="btn btn-warning"
                     onClick={handleBulkBlock}
@@ -219,7 +219,7 @@ const UserTable = () => {
                 </button>
             </div>
         </div>
-
+        <div className="table-responsive">
         <table className="table table-striped table-hover">
             <thead>
             <tr>
@@ -240,7 +240,7 @@ const UserTable = () => {
                 </th>
                 <th
                 onClick={() => handleSort('email')}
-                className="sortable"
+                className="sortable d-none d-sm-table-cell"
                 style={{ cursor: 'pointer' }}
                 >
                 Email {params.sort === 'email' && (params.order === 'asc' ? '↑' : '↓')}
@@ -271,7 +271,7 @@ const UserTable = () => {
                         </td>
                         <td>{(params.page - 1) * params.pageSize + index + 1}</td>
                         <td>{user.name}</td>
-                        <td>{user.email}</td>
+                        <td className='d-none d-sm-table-cell'>{user.email}</td>
                         <td>{new Date(user.lastLogin).toLocaleString()}</td>
                         <td>
                         <span className={`badge bg-${user.status === 'ACTIVE' ? 'success' : 'danger'}`}>
@@ -286,6 +286,7 @@ const UserTable = () => {
                 })}
             </tbody>
         </table>
+        </div>
 
         <div className="d-flex justify-content-between align-items-center">
             <div>
