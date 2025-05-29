@@ -8,7 +8,7 @@ const RegisterForm = () => {
     const [submitError, setSubmitError] = useState(null);
     const [submitSuccess, setSubmitSuccess] = useState(null);
     const {mutateAsync: createUser, isLoading, error} = useRegister();
-    const {register, handleSubmit, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors, isSubmitting}} = useForm();
 
     const onSubmit = async (data) => {
         setSubmitError(null);
@@ -16,15 +16,17 @@ const RegisterForm = () => {
         try {
             const response = await createUser(data);
             setSubmitSuccess(response.message || "Registration successful!");
-        } catch (error) {
-            setSubmitError(error.response?.data?.error || "Error while creating user");
-            console.log(error)
+        } catch (e) {
+            setSubmitError(error.message || "Error while creating user");
+            console.log(`this is catch: ${e}, rq: ${error}`)
         }
     }
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     }
+
+    const isProcessing = isLoading || isSubmitting;
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -93,7 +95,7 @@ const RegisterForm = () => {
 
             <div className="d-grid mt-4"> 
                 <button type="submit" className="btn btn-primary py-2">
-                    {isLoading ? (
+                    {isProcessing ? (
                         <>
                             <span className="spinner-border spinner-border-sm me-2" role="status"></span>
                             Creating User...
