@@ -152,7 +152,21 @@ const UserTable = () => {
                     onClick={handleBulkBlock}
                     disabled={selectedUsers.length === 0}
                     >
-                    Block 
+                    {blockUsersMutation.isLoading ? (
+                        <>
+                            <span 
+                                className="spinner-border spinner-border-sm" 
+                                role="status" 
+                                aria-hidden="true"
+                            ></span>
+                            Blocking...
+                        </>
+                    ) : (
+                        <>
+                            Block 
+                            <i className="bi bi-lock-fill"/>
+                        </>
+                    )} 
                    <i className="bi bi-lock-fill"/>
                 </button>
            
@@ -161,7 +175,18 @@ const UserTable = () => {
                     onClick={handleBulkActivate}
                     disabled={selectedUsers.length === 0}
                     >
-                    <i className="bi bi-unlock-fill"/>
+                      {activateUsersMutation.isLoading ? (
+                        <>
+                            <span 
+                                className="spinner-border spinner-border-sm" 
+                                role="status" 
+                                aria-hidden="true"
+                            ></span>
+                            Activating...
+                        </>
+                    ) : (
+                        <i className="bi bi-unlock-fill"/>
+                    )}
                 </button>
 
                  <button
@@ -169,7 +194,18 @@ const UserTable = () => {
                     onClick={handleBulkDelete}
                     disabled={selectedUsers.length === 0}
                     >
-                    <i className="bi bi-trash-fill"/>
+                    {deleteUsersMutation.isLoading ? (
+                        <>
+                            <span 
+                                className="spinner-border spinner-border-sm" 
+                                role="status" 
+                                aria-hidden="true"
+                            ></span>
+                            Deleting...
+                        </>
+                    ) : (
+                        <i className="bi bi-trash-fill"/>
+                    )}
                 </button>
             </div>
         </div>

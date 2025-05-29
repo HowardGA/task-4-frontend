@@ -8,7 +8,7 @@ const LoginForm = () => {
     const [submitError, setSubmitError] = useState(null);
     const [submitSuccess, setSubmitSuccess] = useState(null);
     const {mutateAsync: login, isLoading, error} = useLogin();
-    const {register, handleSubmit, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors, isSubmitting}} = useForm();
 
     const onSubmit = async (data) => {
         setSubmitError(null);
@@ -17,13 +17,15 @@ const LoginForm = () => {
             const response = await login(data);
             setSubmitSuccess(response.message || "Login successful!");
         } catch (error) {
-            setSubmitError(error.response?.data?.message || "Error logging in");
+            setSubmitError(error.response?.data?.error || "Error logging in");
         }
     }
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     }
+
+    const isProcessing = isLoading || isSubmitting;
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -75,10 +77,18 @@ const LoginForm = () => {
                 </div>            
 
             <div className="d-grid mt-4"> 
-                <button type="submit" className="btn btn-primary py-2">
-                    {isLoading ? (
+             <button 
+                    type="submit" 
+                    className="btn btn-primary py-2"
+                    disabled={isProcessing}
+                >
+                    {isProcessing ? (
                         <>
-                            <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                            <span 
+                                className="spinner-border spinner-border-sm me-2" 
+                                role="status"
+                                aria-hidden="true"
+                            ></span>
                             Logging in...
                         </>
                     ) : (
