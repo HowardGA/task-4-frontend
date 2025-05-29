@@ -167,7 +167,6 @@ const UserTable = () => {
                             <i className="bi bi-lock-fill"/>
                         </>
                     )} 
-                   <i className="bi bi-lock-fill"/>
                 </button>
            
                 <button
