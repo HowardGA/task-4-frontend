@@ -33,6 +33,8 @@ const UserTable = () => {
         }
     }, [alert]);
 
+    const blockUsersMutation = useBlockUsers();
+
     const activateUsersMutation = useActivateUsers({
         onSuccess: () => {
             setAlert({ type: 'primary', message: 'Selected users have been activated.' });
@@ -78,14 +80,15 @@ const UserTable = () => {
 
     const handleBulkBlock = () => {
         const isSelfBlocked = selectedUsers.includes(user?.id);
-        useBlockUsers().mutate(selectedUsers, {
+
+        blockUsersMutation.mutate(selectedUsers, {
             onSuccess: () => {
                 setAlert({ type: 'warning', message: 'Selected users have been blocked.' });
                 refetch();
                 setSelectedUsers([]);
-
                 if (isSelfBlocked) {
                     setUser(null);
+                    localStorage.removeItem('accessToken');
                     navigate('/login', { replace: true });
                 }
             },
@@ -94,6 +97,7 @@ const UserTable = () => {
             }
         });
     };
+
     const handleBulkActivate = () => {
      activateUsersMutation.mutate(selectedUsers);
     };
